@@ -2,38 +2,8 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-users-new-user-alarm/workflows/build/badge.svg)](https://github.com/cisagov/cool-users-new-user-alarm/actions)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) [Terraform
-module](https://www.terraform.io/docs/modules/index.html) GitHub
-repository started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for the major languages that we use.
-
-See [here](https://www.terraform.io/docs/modules/index.html) for more
-details on Terraform modules and the standard module structure.
-
-## Usage ##
-
-```hcl
-module "example" {
-  source = "github.com/cisagov/cool-users-new-user-alarm"
-
-  aws_region            = "us-west-1"
-  aws_availability_zone = "b"
-  subnet_id             = "subnet-0123456789abcdef0"
-
-  tags = {
-    Key1 = "Value1"
-    Key2 = "Value2"
-  }
-}
-```
-
-## Examples ##
-
-* [Deploying into the default VPC](https://github.com/cisagov/cool-users-new-user-alarm/tree/develop/examples/default_vpc)
+This is a Terraform deployment for creating a CloudWatch alarm that is
+triggered when a new user is created.
 
 ## Inputs ##
 
