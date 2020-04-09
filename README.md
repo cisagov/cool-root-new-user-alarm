@@ -5,24 +5,32 @@
 This is a Terraform deployment for creating a CloudWatch alarm that is
 triggered when a new user is created.
 
+## Providers ##
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| aws.organizationsreadonly | n/a |
+| aws.usersprovisionaccount | n/a |
+| terraform | n/a |
+
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-------:|:--------:|
-| aws_region | The AWS region to deploy into (e.g. us-east-1) | string | | yes |
-| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | string | | yes |
-| subnet_id | The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0) | string | | yes |
-| tags | Tags to apply to all AWS resources created | map(string) | `{}` | no |
+|------|-------------|------|---------|:-----:|
+| aws_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `us-east-1` | no |
+| provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Users account. | `string` | `ProvisionAccount` | no |
+| provisionalarm_policy_description | The description to associate with the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `Allows provisioning of the CloudWatch alarm triggered when a new user is added.` | no |
+| provisionalarm_policy_name | The name to assign the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `ProvisionAlarm` | no |
+| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| id | The EC2 instance ID |
-| arn | The EC2 instance ARN |
-| availability_zone | The AZ where the EC2 instance is deployed |
-| private_ip | The private IP of the EC2 instance |
-| subnet_id | The ID of the subnet where the EC2 instance is deployed |
+| alarm | The CloudWatch alarm that is triggered when a new user is created. |
+| metric_filter | The metric filter that feeds the CloudWatch alarm. |
+| policy | The policy created to allow creation of the CloudWatch alarm. |
 
 ## Contributing ##
 
