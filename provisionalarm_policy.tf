@@ -13,6 +13,19 @@ data "aws_iam_policy_document" "provisionalarm" {
       "arn:aws:cloudwatch:${var.aws_region}:${local.users_account_id}:alarm:UserAccountCreated",
     ]
   }
+
+  statement {
+    actions = [
+      "logs:DeleteMetricFilter",
+      "logs:DescribeMetricFilters",
+      "logs:PutMetricFilter",
+    ]
+
+    resources = [
+      "arn:aws:logs:${var.aws_region}:${local.users_account_id}:log-group:aws-controltower/CloudTrailLogs",
+      "arn:aws:logs:${var.aws_region}:${local.users_account_id}:log-group:aws-controltower/CloudTrailLogs:log-stream:",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "provisionalarm" {
