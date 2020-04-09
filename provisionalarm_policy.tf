@@ -13,16 +13,6 @@ data "aws_iam_policy_document" "provisionalarm" {
       "arn:aws:cloudwatch:${var.aws_region}:${local.users_account_id}:alarm:UserAccountCreated",
     ]
   }
-
-  statement {
-    actions = [
-      "sns:ListTopics",
-    ]
-
-    resources = [
-      "*",
-    ]
-  }
 }
 
 resource "aws_iam_policy" "provisionalarm" {
