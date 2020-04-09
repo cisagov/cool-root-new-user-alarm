@@ -1,3 +1,21 @@
+# Create a metric filter that feeds the alarm
+resource "aws_cloudwatch_log_metric_filter" "new_user" {
+  provider = aws.usersprovisionaccount
+  depends_on = [
+    aws_iam_policy.provisionalarm,
+    aws_iam_role_policy_attachment.provisionalarm,
+  ]
+
+  log_group_name = "aws-controltower/CloudTrailLogs"
+  metric_transformation {
+    name      = "UsersCreated"
+    namespace = "LogMetrics"
+    value     = "1"
+  }
+  name    = "Event - UserAccountCreated"
+  pattern = "{($.eventName = \"CreateUser\")}"
+}
+
 # Create the alarm
 resource "aws_cloudwatch_metric_alarm" "new_user" {
   provider = aws.usersprovisionaccount
@@ -11,8 +29,8 @@ resource "aws_cloudwatch_metric_alarm" "new_user" {
   alarm_name          = "UserAccountCreated"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = "UsersCreated"
-  namespace           = "LogMetrics"
+  metric_name         = aws_cloudwatch_log_metric_filter.new_user.metric_transformation[0].name
+  namespace           = aws_cloudwatch_log_metric_filter.new_user.metric_transformation[0].namespace
   period              = "300"
   statistic           = "Sum"
   threshold           = "1"
