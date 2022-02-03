@@ -5,36 +5,61 @@
 This is a Terraform deployment for creating a CloudWatch alarm that is
 triggered when a new user is created.
 
+## Requirements ##
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 1.0 |
+| aws | ~> 3.38 |
+
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| aws.organizationsreadonly | n/a |
-| aws.usersprovisionaccount | n/a |
+| aws | ~> 3.38 |
+| aws.organizationsreadonly | ~> 3.38 |
+| aws.usersprovisionaccount | ~> 3.38 |
 | terraform | n/a |
+
+## Modules ##
+
+No modules.
+
+## Resources ##
+
+| Name | Type |
+|------|------|
+| [aws_cloudwatch_log_metric_filter.new_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
+| [aws_cloudwatch_metric_alarm.new_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_iam_policy.provisionalarm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.provisionalarm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.provisionalarm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_organizations_organization.cool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
+| [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.users](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-| aws_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `us-east-1` | no |
-| provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Users account. | `string` | `ProvisionAccount` | no |
-| provisionalarm_policy_description | The description to associate with the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `Allows provisioning of the CloudWatch alarm triggered when a new user is added.` | no |
-| provisionalarm_policy_name | The name to assign the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `ProvisionAlarm` | no |
-| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
+|------|-------------|------|---------|:--------:|
+| aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
+| provisionaccount\_role\_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Users account. | `string` | `"ProvisionAccount"` | no |
+| provisionalarm\_policy\_description | The description to associate with the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `"Allows provisioning of the CloudWatch alarm triggered when a new user is added."` | no |
+| provisionalarm\_policy\_name | The name to assign the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `"ProvisionAlarm"` | no |
+| tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
 | alarm | The CloudWatch alarm that is triggered when a new user is created. |
-| metric_filter | The metric filter that feeds the CloudWatch alarm. |
+| metric\_filter | The metric filter that feeds the CloudWatch alarm. |
 | policy | The policy created to allow creation of the CloudWatch alarm. |
 
 ## Contributing ##
 
-We welcome contributions!  Please see [here](CONTRIBUTING.md) for
+We welcome contributions!  Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for
 details.
 
 ## License ##
