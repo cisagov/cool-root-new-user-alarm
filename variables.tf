@@ -27,3 +27,9 @@ variable "provisionalarm_policy_name" {
   description = "The name to assign the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added."
   default     = "ProvisionAlarm"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to apply to all AWS resources created."
+  default     = {}
+}
