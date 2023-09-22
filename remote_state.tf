@@ -4,7 +4,7 @@
 # input data for this configuration.
 # ------------------------------------------------------------------------------
 
-data "terraform_remote_state" "master" {
+data "terraform_remote_state" "root" {
   backend = "s3"
 
   config = {
@@ -14,21 +14,6 @@ data "terraform_remote_state" "master" {
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
     key            = "cool-accounts/master.tfstate"
-  }
-
-  workspace = "production"
-}
-
-data "terraform_remote_state" "users" {
-  backend = "s3"
-
-  config = {
-    encrypt        = true
-    bucket         = "cisa-cool-terraform-state"
-    dynamodb_table = "terraform-state-lock"
-    profile        = "cool-terraform-backend"
-    region         = "us-east-1"
-    key            = "cool-accounts/users.tfstate"
   }
 
   workspace = "production"
