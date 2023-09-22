@@ -12,7 +12,7 @@ variable "aws_region" {
 
 variable "provisionaccount_role_name" {
   type        = string
-  description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Users account."
+  description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Root account."
   default     = "ProvisionAccount"
 }
 
