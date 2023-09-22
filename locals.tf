@@ -6,9 +6,8 @@
 data "aws_caller_identity" "current" {}
 
 # ------------------------------------------------------------------------------
-# Retrieve the information for all accouts in the organization.  This
-# is used to lookup the Users account ID for use in the assume role
-# policy.
+# Retrieve the information for all accounts in the organization.  This
+# is used to lookup the Root account ID for use in the provisionalarm policy.
 # ------------------------------------------------------------------------------
 data "aws_organizations_organization" "cool" {
   provider = aws.organizationsreadonly
@@ -22,9 +21,9 @@ locals {
   # session names.
   caller_user_name = split("/", data.aws_caller_identity.current.arn)[1]
 
-  # Find the Users account by name.
-  users_account_id = [
+  # Find the Root account by name.
+  root_account_id = [
     for x in data.aws_organizations_organization.cool.accounts :
-    x.id if x.name == "Users"
+    x.id if x.name == "CISA-COOL"
   ][0]
 }
