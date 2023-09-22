@@ -5,6 +5,6 @@ terraform {
     dynamodb_table = "terraform-state-lock"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "cool-users-new-user-alarm/terraform.tfstate"
+    key            = "cool-root-new-user-alarm/terraform.tfstate"
   }
 }
