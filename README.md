@@ -1,6 +1,6 @@
-# cool-users-new-user-alarm #
+# cool-root-new-user-alarm #
 
-[![GitHub Build Status](https://github.com/cisagov/cool-users-new-user-alarm/workflows/build/badge.svg)](https://github.com/cisagov/cool-users-new-user-alarm/actions)
+[![GitHub Build Status](https://github.com/cisagov/cool-users-new-user-alarm/workflows/build/badge.svg)](https://github.com/cisagov/cool-root-new-user-alarm/actions)
 
 This is a Terraform deployment for creating a CloudWatch alarm that is
 triggered when a new user is created.
@@ -18,12 +18,14 @@ triggered when a new user is created.
 |------|---------|
 | aws | ~> 3.38 |
 | aws.organizationsreadonly | ~> 3.38 |
-| aws.usersprovisionaccount | ~> 3.38 |
+| aws.rootprovisionaccount | ~> 3.38 |
 | terraform | n/a |
 
 ## Modules ##
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| sns\_new\_user\_alarms | github.com/cisagov/cw-alarm-sns-tf-module | n/a |
 
 ## Resources ##
 
@@ -36,15 +38,14 @@ No modules.
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.provisionalarm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_organizations_organization.cool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
-| [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.users](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.root](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
-| provisionaccount\_role\_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Users account. | `string` | `"ProvisionAccount"` | no |
+| provisionaccount\_role\_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Root account. | `string` | `"ProvisionAccount"` | no |
 | provisionalarm\_policy\_description | The description to associate with the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `"Allows provisioning of the CloudWatch alarm triggered when a new user is added."` | no |
 | provisionalarm\_policy\_name | The name to assign the IAM policy that allows provisioning of the CloudWatch alarm triggered when a new user is added. | `string` | `"ProvisionAlarm"` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
