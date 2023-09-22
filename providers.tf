@@ -10,12 +10,12 @@ provider "aws" {
   }
 }
 
-# The provider used to create new resources in the Users account.
+# The provider used to create new resources in the Root account.
 provider "aws" {
-  alias  = "usersprovisionaccount"
+  alias  = "rootprovisionaccount"
   region = var.aws_region
   assume_role {
-    role_arn     = data.terraform_remote_state.users.outputs.provisionaccount_role.arn
+    role_arn     = data.terraform_remote_state.root.outputs.provisionaccount_role.arn
     session_name = local.caller_user_name
   }
   default_tags {
@@ -28,7 +28,7 @@ provider "aws" {
   alias  = "organizationsreadonly"
   region = var.aws_region
   assume_role {
-    role_arn     = data.terraform_remote_state.master.outputs.organizationsreadonly_role.arn
+    role_arn     = data.terraform_remote_state.root.outputs.organizationsreadonly_role.arn
     session_name = local.caller_user_name
   }
   default_tags {
